@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authScheme } from "../../validations/scheme";
 
 // images
-import logoImage from "../../images/wp11391338.jpg"
+import logoImage from "../../../public/wp11391338.jpg"
 
 // context
 import { useAuthContext } from "../../context/authContext";

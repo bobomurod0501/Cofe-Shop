@@ -17,7 +17,7 @@ import { loginSchema } from "../../validations/scheme";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
-import logoImage from "../../images/wp11391338.jpg"
+import logoImage from "../../../public/wp11391338.jpg"
 
 // context
 
