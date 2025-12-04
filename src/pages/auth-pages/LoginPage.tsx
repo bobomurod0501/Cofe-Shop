@@ -17,6 +17,7 @@ import { loginSchema } from "../../validations/scheme";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
+import logoImage from "../../images/wp11391338.jpg"
 
 // context
 
@@ -72,7 +73,7 @@ const LoginPage = () => {
       sx={{
         height: "100vh",
         width: "100%",
-        backgroundImage: "url('https://wallpapercave.com/wp/wp11391338.jpg')",
+        backgroundImage: `url(${logoImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

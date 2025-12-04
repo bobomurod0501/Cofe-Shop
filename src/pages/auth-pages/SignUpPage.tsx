@@ -16,6 +16,9 @@ import { Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authScheme } from "../../validations/scheme";
 
+// images
+import logoImage from "../../images/wp11391338.jpg"
+
 // context
 import { useAuthContext } from "../../context/authContext";
 
@@ -92,7 +95,7 @@ const SignUpPage = () => {
       sx={{
         height: "100vh",
         width: "100%",
-        backgroundImage: "url('https://wallpapercave.com/wp/wp11391338.jpg')",
+        backgroundImage: `url(${logoImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
