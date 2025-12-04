@@ -28,8 +28,8 @@ const CofePage = () => {
         flexWrap: "wrap",
         justifyContent: "space-evenly",
         gap: 4,
-        overflowY:"scroll",
-        scrollbarWidth:"20px"
+        overflowY: "scroll",
+        scrollbarWidth: "20px",
       }}
     >
       {data?.data?.filter((item: CofePropsType) =>

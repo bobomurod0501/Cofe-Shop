@@ -11,13 +11,13 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import Button from "@mui/material/Button";
 import { Navigate, useNavigate } from "react-router";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authScheme } from "../../validations/scheme";
 
 // images
-import logoImage from "../../../public/wp11391338.jpg"
+import logoImage from "../../../public/wp11391338.jpg";
 
 // context
 import { useAuthContext } from "../../context/authContext";
@@ -29,24 +29,24 @@ import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 
 interface SignUpFormTypes {
-  fName: string,
-  lName: string,
-  email: string,
-  password: string
+  fName: string;
+  lName: string;
+  email: string;
+  password: string;
 }
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
-  const {setIsAuth, isAuth} = useAuthContext()
+  const { setIsAuth, isAuth } = useAuthContext();
   const { handleSubmit, control, reset } = useForm<SignUpFormTypes>({
     resolver: zodResolver(authScheme),
     defaultValues: {
       fName: "",
       lName: "",
       email: "",
-      password: ""
-    }
-  })
+      password: "",
+    },
+  });
   if (isAuth) return <Navigate to="/" replace />;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -56,40 +56,37 @@ const SignUpPage = () => {
     event.preventDefault();
   };
 
-
-
   const onSubmitFunc = async (data: SignUpFormTypes) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(async(userCredential) => {
+      .then(async (userCredential) => {
         // Signed up
         const user = userCredential.user;
-        const token = await user.getIdToken()
-        localStorage.setItem("access_token", token)
+        const token = await user.getIdToken();
+        localStorage.setItem("access_token", token);
         // ...
-         await updateProfile(user, {
+        await updateProfile(user, {
           displayName: data.fName,
         });
-        setIsAuth(true)
+        setIsAuth(true);
         reset({
           fName: "",
           lName: "",
           email: "",
-          password: ""
-        })
-        toast.success("successfully registered")
-        navigate("/")
-
+          password: "",
+        });
+        toast.success("successfully registered");
+        navigate("/");
       })
       .catch(() => {
-        toast.error("Email or Password is incorrect")
+        toast.error("Email or Password is incorrect");
         reset({
           fName: "",
           lName: "",
           email: "",
-          password: ""
-        })
+          password: "",
+        });
       });
-  }
+  };
   return (
     <Box
       sx={{
@@ -142,7 +139,6 @@ const SignUpPage = () => {
                 label="First name"
               ></TextField>
             )}
-
           />
           <Controller
             name="lName"
@@ -199,7 +195,6 @@ const SignUpPage = () => {
             )}
           />
 
-
           <Controller
             name="password"
             control={control}
@@ -221,7 +216,9 @@ const SignUpPage = () => {
                   },
                 }}
               >
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
                 <OutlinedInput
                   {...field}
                   id="outlined-adornment-password"
@@ -229,7 +226,9 @@ const SignUpPage = () => {
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
-                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
@@ -244,7 +243,12 @@ const SignUpPage = () => {
               </FormControl>
             )}
           />
-          <Button type="submit" fullWidth sx={{ background: "#552B10" }} variant="contained">
+          <Button
+            type="submit"
+            fullWidth
+            sx={{ background: "#552B10" }}
+            variant="contained"
+          >
             Sign up
           </Button>
           <Button

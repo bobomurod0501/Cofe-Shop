@@ -24,6 +24,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchBar from "../components/SearchBar";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 // Icons
 import Settings from "@mui/icons-material/Settings";
@@ -31,16 +35,20 @@ import Logout from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { items } from "./SideBarItems";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+
 import { useLocation, useNavigate } from "react-router";
 import { Footer } from "../components/korzinka/Footer";
+
+// firebase
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
+
+// toast
 import { toast } from "react-toastify";
+
+// contexts
 import { useAuthContext } from "../context/authContext";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -130,17 +138,13 @@ const Drawer = styled(MuiDrawer, {
   ],
 }));
 
-
-
-
 const MainLayout = ({ children }: Props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-  const { pathname } = useLocation()
-  const { setIsAuth } = useAuthContext()
-
+  const { pathname } = useLocation();
+  const { setIsAuth } = useAuthContext();
 
   const opeAnchor = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -159,18 +163,20 @@ const MainLayout = ({ children }: Props) => {
   };
 
   const handleLogOutFunc = () => {
-    signOut(auth).then(() => {
-      toast.success("successfully logout")
-      localStorage.clear()
-      setIsAuth(false)
-      handleClose()
-      navigate("/auth/login")
-    }).catch(() => {
-      console.log("logout error");
-    });
-  }
+    signOut(auth)
+      .then(() => {
+        toast.success("successfully logout");
+        localStorage.clear();
+        setIsAuth(false);
+        handleClose();
+        navigate("/auth/login");
+      })
+      .catch(() => {
+        console.log("logout error");
+      });
+  };
 
-  const user = auth.currentUser
+  const user = auth.currentUser;
 
   return (
     <Box sx={{ width: "100%", height: "100vh" }}>
@@ -201,7 +207,7 @@ const MainLayout = ({ children }: Props) => {
               }}
             >
               <Box></Box>
-              <SearchBar  />
+              <SearchBar />
               <Box display={"flex"} alignItems={"center"} color={"#2f3a3c"}>
                 <Typography>Hello!! {user?.displayName}</Typography>
                 <Box
@@ -220,7 +226,9 @@ const MainLayout = ({ children }: Props) => {
                       aria-haspopup="true"
                       aria-expanded={opeAnchor ? "true" : undefined}
                     >
-                      <Avatar sx={{ width: 32, height: 32 }}>{user?.displayName?.[0]}</Avatar>
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        {user?.displayName?.[0]}
+                      </Avatar>
                     </IconButton>
                   </Tooltip>
                 </Box>
@@ -275,7 +283,10 @@ const MainLayout = ({ children }: Props) => {
                   </MenuItem>
                   <Divider />
 
-                  <MenuItem onClick={() => handleLogOutFunc()} sx={{ color: "#d22e2e" }} >
+                  <MenuItem
+                    onClick={() => handleLogOutFunc()}
+                    sx={{ color: "#d22e2e" }}
+                  >
                     <ListItemIcon>
                       <Logout color="error" fontSize="small" />
                     </ListItemIcon>
@@ -293,7 +304,6 @@ const MainLayout = ({ children }: Props) => {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               backgroundColor: "#A5D6A7",
-              // color: "white",
             },
           }}
         >
@@ -319,7 +329,11 @@ const MainLayout = ({ children }: Props) => {
                       `/${item.name == "Qahva" ? "" : item.name.toLowerCase()}`
                     )
                   }
-                  selected={pathname == "/" && item.name == "Qahva" ? true : pathname == "/" + item.name.toLowerCase()}
+                  selected={
+                    pathname == "/" && item.name == "Qahva"
+                      ? true
+                      : pathname == "/" + item.name.toLowerCase()
+                  }
                   sx={[
                     {
                       minHeight: 48,
@@ -327,11 +341,11 @@ const MainLayout = ({ children }: Props) => {
                     },
                     open
                       ? {
-                        justifyContent: "initial",
-                      }
+                          justifyContent: "initial",
+                        }
                       : {
-                        justifyContent: "center",
-                      },
+                          justifyContent: "center",
+                        },
                   ]}
                 >
                   <ListItemIcon
@@ -342,11 +356,11 @@ const MainLayout = ({ children }: Props) => {
                       },
                       open
                         ? {
-                          mr: 3,
-                        }
+                            mr: 3,
+                          }
                         : {
-                          mr: "auto",
-                        },
+                            mr: "auto",
+                          },
                     ]}
                   >
                     {item.icon}
@@ -356,11 +370,11 @@ const MainLayout = ({ children }: Props) => {
                     sx={[
                       open
                         ? {
-                          opacity: 1,
-                        }
+                            opacity: 1,
+                          }
                         : {
-                          opacity: 0,
-                        },
+                            opacity: 0,
+                          },
                     ]}
                   />
                 </ListItemButton>
@@ -368,7 +382,15 @@ const MainLayout = ({ children }: Props) => {
             ))}
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: "#F1F3F4", minHeight:"100vh" }}>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            backgroundColor: "#F1F3F4",
+            minHeight: "100vh",
+          }}
+        >
           <DrawerHeader />
           {children}
         </Box>

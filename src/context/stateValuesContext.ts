@@ -1,17 +1,19 @@
 import { createContext, useContext } from "react";
+
+
 interface StateValuesType {
-   searchVal:string,
-   setSearchVal:(val:string) => void
+  searchVal: string;
+  setSearchVal: (val: string) => void;
 }
 const StateValuesContext = createContext<StateValuesType>({
   searchVal: "",
-  setSearchVal:() => {
-   // 
-  }
+  setSearchVal: () => {
+    //
+  },
 });
 
 const useStateValuesContext = () => {
-   return useContext(StateValuesContext)
-}
+  return useContext(StateValuesContext);
+};
 
-export {useStateValuesContext, StateValuesContext}
+export { useStateValuesContext, StateValuesContext };

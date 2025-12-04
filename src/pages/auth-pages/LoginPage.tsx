@@ -17,27 +17,26 @@ import { loginSchema } from "../../validations/scheme";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
-import logoImage from "../../../public/wp11391338.jpg"
+import logoImage from "../../../public/wp11391338.jpg";
 
 // context
-
 import { useAuthContext } from "../../context/authContext";
 
 interface LoginFormDataTypes {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }
 const LoginPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const navigate = useNavigate()
-  const {isAuth, setIsAuth } = useAuthContext()
+  const navigate = useNavigate();
+  const { isAuth, setIsAuth } = useAuthContext();
   const { control, handleSubmit, reset } = useForm<LoginFormDataTypes>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: ""
-    }
-  })
+      password: "",
+    },
+  });
   if (isAuth) return <Navigate to="/" replace />;
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -48,26 +47,24 @@ const LoginPage = () => {
     event.preventDefault();
   };
 
-
-
-  const onSubmit = (data: { email: string, password: string }) => {
+  const onSubmit = (data: { email: string; password: string }) => {
     signInWithEmailAndPassword(auth, data.email, data.password)
-      .then(async(userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        const token = await user.getIdToken()
-        localStorage.setItem("access_token", token)
-        toast.success("successfully sign in")
+        const token = await user.getIdToken();
+        localStorage.setItem("access_token", token);
+        toast.success("successfully sign in");
         reset({
           email: "",
-          password: ""
-        })
-        setIsAuth(true)
-        navigate("/")
+          password: "",
+        });
+        setIsAuth(true);
+        navigate("/");
       })
       .catch(() => {
-        toast.error("Email or Passwprd is incorrect")
+        toast.error("Email or Passwprd is incorrect");
       });
-  }
+  };
   return (
     <Box
       sx={{
@@ -143,7 +140,9 @@ const LoginPage = () => {
                   },
                 }}
               >
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
                 <OutlinedInput
                   {...field}
                   id="outlined-adornment-password"
@@ -151,7 +150,9 @@ const LoginPage = () => {
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
-                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
@@ -166,10 +167,20 @@ const LoginPage = () => {
               </FormControl>
             )}
           />
-          <Button type="submit" fullWidth sx={{ background: "#552B10" }} variant="contained">
+          <Button
+            type="submit"
+            fullWidth
+            sx={{ background: "#552B10" }}
+            variant="contained"
+          >
             Login
           </Button>
-          <Button onClick={() => navigate("/auth/signup")} fullWidth sx={{ borderColor: "#552B10", color: "#552B10", mt: 2 }} variant="outlined">
+          <Button
+            onClick={() => navigate("/auth/signup")}
+            fullWidth
+            sx={{ borderColor: "#552B10", color: "#552B10", mt: 2 }}
+            variant="outlined"
+          >
             Sign up
           </Button>
         </Box>

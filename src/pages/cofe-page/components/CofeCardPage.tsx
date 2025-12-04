@@ -29,7 +29,9 @@ const CofeCardPage = ({ cofe }: { cofe: CofePropsType }) => {
     if (exist) {
       setSelectedProductArr(
         prev.map((item) =>
-          item.id === product.id ? { ...item, count: (item.count ?? 0) + 1 } : item
+          item.id === product.id
+            ? { ...item, count: (item.count ?? 0) + 1 }
+            : item
         )
       );
       return;
@@ -49,7 +51,9 @@ const CofeCardPage = ({ cofe }: { cofe: CofePropsType }) => {
 
     return setSelectedProductArr(
       prev.map((item) =>
-        item.id === product.id ? { ...item, count: (item.count ?? 0) - 1 } : item
+        item.id === product.id
+          ? { ...item, count: (item.count ?? 0) - 1 }
+          : item
       )
     );
   };

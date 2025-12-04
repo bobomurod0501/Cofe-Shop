@@ -4,6 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ClearIcon from "@mui/icons-material/Clear";
+// contexts
 import { useProductContext } from "../../context/productContext";
 
 interface CofePropsType {
@@ -16,11 +17,11 @@ interface CofePropsType {
 }
 
 const FooterProductCard = ({ product }: { product: CofePropsType }) => {
-   const {selectedProductArr, setSelectedProductArr} = useProductContext()
-   const deleteProduct = (id:number) => {
-      const filteredArr = selectedProductArr.filter((item) => item.id != id)
-      setSelectedProductArr(filteredArr)
-   }
+  const { selectedProductArr, setSelectedProductArr } = useProductContext();
+  const deleteProduct = (id: number) => {
+    const filteredArr = selectedProductArr.filter((item) => item.id != id);
+    setSelectedProductArr(filteredArr);
+  };
 
   return (
     <Card
@@ -32,7 +33,7 @@ const FooterProductCard = ({ product }: { product: CofePropsType }) => {
         width: "200px",
         gap: 1,
         p: 1,
-        flexShrink:0
+        flexShrink: 0,
       }}
     >
       <CardMedia
@@ -41,7 +42,7 @@ const FooterProductCard = ({ product }: { product: CofePropsType }) => {
         image={product.image}
         alt="Live from space album cover"
       />
-      <Box sx={{maxWidth:"38%"}}>
+      <Box sx={{ maxWidth: "38%" }}>
         <Typography
           sx={{
             whiteSpace: "nowrap",
@@ -57,7 +58,10 @@ const FooterProductCard = ({ product }: { product: CofePropsType }) => {
           {product.count} x {product.price}
         </Typography>
       </Box>
-      <IconButton onClick={() => deleteProduct(product.id)} sx={{maxWidth:"18%"}}>
+      <IconButton
+        onClick={() => deleteProduct(product.id)}
+        sx={{ maxWidth: "18%" }}
+      >
         <ClearIcon />
       </IconButton>
     </Card>
