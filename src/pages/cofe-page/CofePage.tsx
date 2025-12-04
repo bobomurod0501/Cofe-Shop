@@ -30,6 +30,7 @@ const CofePage = () => {
         gap: 4,
         overflowY: "scroll",
         scrollbarWidth: "20px",
+        mb:"150px"
       }}
     >
       {data?.data?.filter((item: CofePropsType) =>

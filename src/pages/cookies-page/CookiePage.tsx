@@ -24,6 +24,7 @@ const CookiePage = () => {
         flexWrap: "wrap",
         justifyContent: "space-evenly",
         gap: 4,
+        mb:"150px"
       }}
     >
       {data?.data?.filter((item: CookiePropsType) =>
