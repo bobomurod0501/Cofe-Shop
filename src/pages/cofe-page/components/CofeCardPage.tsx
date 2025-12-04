@@ -61,7 +61,7 @@ const CofeCardPage = ({ cofe }: { cofe: CofePropsType }) => {
   const cartItem = selectedProductArr.find((item) => item.id === cofe.id);
 
   return (
-    <Card sx={{ width: 300, maxHeight: 300 }}>
+    <Card sx={{ width: 250, maxHeight: 270 }}>
       <CardMedia
         component="img"
         image={cofe.image}
