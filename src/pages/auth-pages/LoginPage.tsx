@@ -31,7 +31,6 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate()
   const {isAuth, setIsAuth } = useAuthContext()
-  if (isAuth) return <Navigate to="/" replace />;
   const { control, handleSubmit, reset } = useForm<LoginFormDataTypes>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -39,6 +38,7 @@ const LoginPage = () => {
       password: ""
     }
   })
+  if (isAuth) return <Navigate to="/" replace />;
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 

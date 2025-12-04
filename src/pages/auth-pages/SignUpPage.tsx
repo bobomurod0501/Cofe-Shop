@@ -38,7 +38,6 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
   const {setIsAuth, isAuth} = useAuthContext()
-  if (isAuth) return <Navigate to="/" replace />;
   const { handleSubmit, control, reset } = useForm<SignUpFormTypes>({
     resolver: zodResolver(authScheme),
     defaultValues: {
@@ -48,6 +47,7 @@ const SignUpPage = () => {
       password: ""
     }
   })
+  if (isAuth) return <Navigate to="/" replace />;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (

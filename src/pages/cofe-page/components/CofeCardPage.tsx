@@ -103,7 +103,7 @@ const CofeCardPage = ({ cofe }: { cofe: CofePropsType }) => {
             </IconButton>
             <input
               type="text"
-              className="w-[40px] outline-none text-center"
+              className="w-5 outline-none text-center"
               value={cartItem?.count || 0}
               readOnly
             />
