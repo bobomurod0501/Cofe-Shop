@@ -2,34 +2,22 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useStateValuesContext } from '../context/stateValuesContext';
 
 
 
 
 const SearchBar = () => {
-   const [searchVal, setSearchVal] = useState<string>("")
-   const navigate = useNavigate()
+const {setSearchVal} = useStateValuesContext()
 
-   const submitFunc = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      if (searchVal.trim()) {
-         navigate(`/search/${searchVal.toLocaleLowerCase()}`)
-      } else {
-         navigate("/")
-      }
-      setSearchVal("")
-   }
    return (
       <Paper
          component="form"
          sx={{ display: 'flex', alignItems: 'center', width: 400 }}
-         onSubmit={submitFunc}
       >
          <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Search videos..."
+            placeholder="search..."
             inputProps={{ 'aria-label': 'search google maps' }}
             onChange={(e) => setSearchVal(e.target.value)}
          />

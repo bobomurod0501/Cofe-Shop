@@ -1,10 +1,21 @@
+import { useAuthContext } from '../context/authContext'
 import MainLayout from '../layout/MainLayout'
-import { Outlet } from 'react-router'
+import { Navigate, Outlet } from 'react-router'
+import StateValuesProvider from '../providers/StateValuesProvider'
 
 export const Root = () => {
+  const { isAuth } = useAuthContext()
+
+  if (!isAuth) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
   return (
-    <MainLayout>
-      <Outlet/>
-    </MainLayout>
+
+    <StateValuesProvider>
+      <MainLayout>
+        <Outlet />
+      </MainLayout>
+    </StateValuesProvider>
   )
 }
